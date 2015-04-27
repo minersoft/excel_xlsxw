@@ -1,0 +1,11 @@
+{
+    "name": "excel_xlsxw",
+    "description": "Generation of excel spreadsheets with charts using XlsxWriter python module",
+    "url": "github:///minersoft/excel_xlsxw",
+    "version": "1.0.0",
+    "build": 1,
+    "last_modified": "2015-04-27 23:30:00",
+    "dependencies": [],
+    "external_modules": [ {"name": "XlsxWriter", "import_name": "xlsxwriter", "url": "https://xlsxwriter.readthedocs.org/getting_started.html"} ],
+    "changelog": []
+}

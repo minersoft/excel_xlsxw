@@ -1,0 +1,27 @@
+USE excel_xlsxw
+IMPORT math
+
+# Simple example with output formatting - formatting.xlsx
+ ITERATE i in range(100) |
+   SELECT i, i*1024 as i_kb, i**2 as i_square, i/100. as i_percent, math.sqrt(i) as sqrt_i, 1.2**i as i_pow|
+   WRITE i_kb="KB" i_square="," i_percent="%" sqrt_i="." i_pow="e" i_pow_title="1.2^i" formatting.xlsx
+
+# Generate line chart - trigonometric.xlsx
+ITERATE alpha in range(0, 360, 10) | SELECT alpha, math.sin(alpha/180.*math.pi) as sin, math.cos(alpha/180.*math.pi) as cos |
+  WRITE chartType="line" chartX="alpha" chartY="sin,cos" trigonometric.xlsx
+
+# Generate excel with multiple sheets -  multiSheet.xlsx
+SET data=[("Q1", 0, 1000), ("Q2", 500, 1500), ("Q3", 1000, 1000), ("Q4", 1500, 500)]
+
+ITERATE quarter, y2014, y2015 in data |
+  WRITE chartX="quarter" chartY="y2014,y2015" y2014_title="'2014" y2015_title="'2015" sheetName="Column Chart" \
+        chartType="column" continue=True multiSheet.xlsx
+
+ITERATE quarter, y2014, y2015 in data |
+  WRITE chartX="quarter" chartY="y2014,y2015" y2014_title="'2014" y2015_title="'2015" sheetName="Stacked Bar Chart" \
+        chartType="stackedBar" chartAlign="left" continue=True multiSheet.xlsx
+
+# Last sheet doesn't have continue option
+ITERATE quarter, y2014, y2015 in data |
+  WRITE chartX="quarter" chartY="y2014,y2015" y2014_title="'2014" y2015_title="'2015" sheetName="Relative Area" \
+        chartType="relativeArea" chartAlign="bottom" chartStyle=42 multiSheet.xlsx
